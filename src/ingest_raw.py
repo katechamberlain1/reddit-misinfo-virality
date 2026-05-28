@@ -41,7 +41,32 @@ def isolate_subreddits(input_zst_path, output_csv_path):
                 subreddit = post.get('subreddit', '').lower()
 
                 if subreddit in target_subreddits:
-                    
-                
+                    title = post.get('title', '')
+
+                    # Ignore the metadata rows that we don't want to ingest
+                    if not title or title in ['[deleted]', '[removed]']:
+                        continue
+
+                    writer.writerow({
+                        'id': post.get('id'),
+                        'created_utc': post.get('created_utc'),
+                        'subreddit': post.get('subreddit'),
+                        'title': title,
+                        'selftext': post.get('selftext', ''),
+                        'score': int(post.get('score', 0)),
+                        'num_comments': int(post.get('num_comments', 0)),
+                        'url': post.get('url', '')
+                    })
+                    match_count += 1
+
+                    if line_count % 5000 == 0:
+                        print(f"Processed {line_count} Reddit posts and found {match_count} relevant posts")
+
             except:
                 continue
+
+    print(f"Processing complete. Processed {line_count} posts and saved {match_count} relevant posts to {output_csv_path}")
+
+
+if __name__ == "__main__":
+    isolate_subreddits('data/raw/RS_2024-08.zst', 'data/processed/august_2024_uk_sandbox.csv')
