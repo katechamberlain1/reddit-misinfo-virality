@@ -1,0 +1,28 @@
+{
+  "model": "tfidf_logreg",
+  "split": "validation",
+  "class_weight": null,
+  "accuracy": 0.81,
+  "macro_f1": 0.77,
+  "weighted_f1": 0.8,
+  "per_class": {
+    "authentic": {
+      "precision": 0.77,
+      "recall": 0.75,
+      "f1": 0.76,
+      "support": 23320
+    },
+    "fake": {
+      "precision": 0.86,
+      "recall": 0.59,
+      "f1": 0.7,
+      "support": 1365
+    },
+    "satire": {
+      "precision": 0.83,
+      "recall": 0.85,
+      "f1": 0.84,
+      "support": 34657
+    }
+  }
+}
