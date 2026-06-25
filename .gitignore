@@ -10,6 +10,7 @@ models/
 *.pth
 *.bin
 *.pkl
+*.tar.gz
 
 # Secrets (for the PRAW route)
 .env
